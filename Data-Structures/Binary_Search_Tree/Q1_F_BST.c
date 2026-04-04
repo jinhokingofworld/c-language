@@ -60,7 +60,7 @@ int main()
 
 
 	while (c != 0)
-	{
+	{   //c에 사용자 입력 받음
 		printf("Please input your choice(1/2/0): ");
 		scanf("%d", &c);
 
@@ -90,16 +90,30 @@ int main()
 }
 
 //////////////////////////////////////////////////////////////////////////////////
-
+// BFS를 구현하라
 void levelOrderTraversal(BSTNode* root)
 {
+	//없으면,
+	if (root == NULL) {
+		return;
+	}
 
-    /* add your code here */
+	if (root != NULL) {
+		// while로 큐가 비기 전 까지 돌리고
+		// 	왼쪽, 오른쪽 큐에 넣고,
+		// 	계속 넣음 
+
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-
+//insertBSTNode(&root, i);
+//매개변수 node는 포인터를 가리키는 포인터.
+//그래서 node에 포인터의 주소가 들어감 &root
+//*node는 root의 값 = root의 값 = 가리키는 곳의 주소값
+//**node root가 가리키는 주소의 값
 void insertBSTNode(BSTNode **node, int value){
+	
 	if (*node == NULL)
 	{
 		*node = malloc(sizeof(BSTNode));

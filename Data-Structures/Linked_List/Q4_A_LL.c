@@ -11,12 +11,14 @@ Purpose: Implementing the required functions for Question 4 */
 
 //////////////////////////////////////////////////////////////////////////////////
 
+// 연결 리스트의 한 노드입니다.
 typedef struct _listnode
 {
 	int item;
 	struct _listnode *next;
 } ListNode;			// You should not change the definition of ListNode
 
+// 리스트 시작점(head)과 크기(size)를 저장합니다.
 typedef struct _linkedlist
 {
 	int size;
@@ -86,11 +88,21 @@ int main()
 
 void moveEvenItemsToBack(LinkedList *ll)
 {
-	/* add your code here */
+	/*
+	  해야 할 일:
+	  - 짝수 값을 가진 노드를 모두 뒤쪽으로 이동합니다.
+	  - Q3의 홀수 이동과 거의 같은 문제이고, 조건만 반대입니다.
+
+	  구현할 때 보는 포인트:
+	  - 현재 노드를 유지할지
+	  - 떼어내서 뒤에 붙일지
+	  - head가 바뀌는 경우가 있는지
+	*/
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
 
+// 리스트의 값을 차례대로 출력합니다.
 void printList(LinkedList *ll){
 
 	ListNode *cur;
@@ -109,6 +121,7 @@ void printList(LinkedList *ll){
 }
 
 
+// 모든 노드를 free합니다.
 void removeAllItems(LinkedList *ll)
 {
 	ListNode *cur = ll->head;
@@ -124,6 +137,7 @@ void removeAllItems(LinkedList *ll)
 }
 
 
+// index번째 노드를 반환합니다.
 ListNode *findNode(LinkedList *ll, int index){
 
 	ListNode *temp;
@@ -146,6 +160,7 @@ ListNode *findNode(LinkedList *ll, int index){
 	return temp;
 }
 
+// index 위치에 새 노드를 삽입합니다.
 int insertNode(LinkedList *ll, int index, int value){
 
 	ListNode *pre, *cur;
@@ -153,7 +168,7 @@ int insertNode(LinkedList *ll, int index, int value){
 	if (ll == NULL || index < 0 || index > ll->size + 1)
 		return -1;
 
-	// If empty list or inserting first node, need to update head pointer
+	// 맨 앞 삽입은 head를 새 노드로 바꿔야 합니다.
 	if (ll->head == NULL || index == 0){
 		cur = ll->head;
 		ll->head = malloc(sizeof(ListNode));
@@ -164,8 +179,7 @@ int insertNode(LinkedList *ll, int index, int value){
 	}
 
 
-	// Find the nodes before and at the target position
-	// Create a new node and reconnect the links
+	// 삽입할 위치의 앞 노드를 찾은 뒤 연결을 조정합니다.
 	if ((pre = findNode(ll, index - 1)) != NULL){
 		cur = pre->next;
 		pre->next = malloc(sizeof(ListNode));
@@ -179,6 +193,7 @@ int insertNode(LinkedList *ll, int index, int value){
 }
 
 
+// index번째 노드를 삭제합니다.
 int removeNode(LinkedList *ll, int index){
 
 	ListNode *pre, *cur;

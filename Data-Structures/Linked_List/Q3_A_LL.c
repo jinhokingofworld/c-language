@@ -11,12 +11,14 @@ Purpose: Implementing the required functions for Question 3 */
 
 //////////////////////////////////////////////////////////////////////////////////
 
+// 연결 리스트 한 칸(노드)입니다.
 typedef struct _listnode
 {
 	int item;
 	struct _listnode *next;
 } ListNode;			// You should not change the definition of ListNode
 
+// 리스트의 시작 위치와 크기를 저장합니다.
 typedef struct _linkedlist
 {
 	int size;
@@ -86,11 +88,24 @@ int main()
 
 void moveOddItemsToBack(LinkedList *ll)
 {
-	/* add your code here */
+	/*
+	  해야 할 일:
+	  - 홀수 값을 가진 노드를 모두 리스트 뒤쪽으로 보냅니다.
+	  - 짝수들의 상대적 순서와 홀수들의 상대적 순서는 보통 유지하는 방식이 깔끔합니다.
+
+	  생각 방법:
+	  1) 현재 노드가 홀수인지 확인
+	  2) 홀수면 그 노드를 떼어서 맨 뒤에 붙임
+	  3) 짝수면 그냥 다음 노드로 이동
+
+	  연결 리스트에서는 "값을 복사"하기보다
+	  "노드 연결(next)을 바꾸는 것"이 핵심입니다.
+	*/
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
 
+// 리스트를 순서대로 출력합니다.
 void printList(LinkedList *ll){
 
 	ListNode *cur;
@@ -109,6 +124,7 @@ void printList(LinkedList *ll){
 }
 
 
+// 모든 노드를 해제합니다.
 void removeAllItems(LinkedList *ll)
 {
 	ListNode *cur = ll->head;
@@ -124,6 +140,7 @@ void removeAllItems(LinkedList *ll)
 }
 
 
+// index번째 노드를 찾아 반환합니다.
 ListNode *findNode(LinkedList *ll, int index){
 
 	ListNode *temp;
@@ -146,6 +163,7 @@ ListNode *findNode(LinkedList *ll, int index){
 	return temp;
 }
 
+// index 위치에 새 노드를 끼워 넣습니다.
 int insertNode(LinkedList *ll, int index, int value){
 
 	ListNode *pre, *cur;
@@ -153,7 +171,7 @@ int insertNode(LinkedList *ll, int index, int value){
 	if (ll == NULL || index < 0 || index > ll->size + 1)
 		return -1;
 
-	// If empty list or inserting first node, need to update head pointer
+	// 리스트 맨 앞 삽입은 head 변경이 필요합니다.
 	if (ll->head == NULL || index == 0){
 		cur = ll->head;
 		ll->head = malloc(sizeof(ListNode));
@@ -164,8 +182,7 @@ int insertNode(LinkedList *ll, int index, int value){
 	}
 
 
-	// Find the nodes before and at the target position
-	// Create a new node and reconnect the links
+	// 새 노드를 만들고 앞뒤 연결을 다시 이어 줍니다.
 	if ((pre = findNode(ll, index - 1)) != NULL){
 		cur = pre->next;
 		pre->next = malloc(sizeof(ListNode));
@@ -179,6 +196,7 @@ int insertNode(LinkedList *ll, int index, int value){
 }
 
 
+// index번째 노드를 삭제합니다.
 int removeNode(LinkedList *ll, int index){
 
 	ListNode *pre, *cur;

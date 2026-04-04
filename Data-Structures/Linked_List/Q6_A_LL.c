@@ -11,12 +11,14 @@ Purpose: Implementing the required functions for Question 6 */
 
 //////////////////////////////////////////////////////////////////////////////////
 
+// 연결 리스트의 노드입니다.
 typedef struct _listnode
 {
 	int item;
 	struct _listnode *next;
 } ListNode;			// You should not change the definition of ListNode
 
+// 리스트의 시작 노드와 크기를 저장합니다.
 typedef struct _linkedlist
 {
 	int size;
@@ -88,11 +90,24 @@ int main()
 
 int moveMaxToFront(ListNode **ptrHead)
 {
-    /* add your code here */
+    /*
+       해야 할 일:
+       - 가장 큰 값을 가진 노드를 찾아서 맨 앞으로 옮깁니다.
+
+       왜 매개변수가 ListNode **ptrHead 일까?
+       - 맨 앞 노드가 바뀔 수 있기 때문입니다.
+       - 즉, head 자체를 수정하려면 "head의 주소"가 필요합니다.
+
+       큰 흐름:
+       1) 최대값 노드와 그 이전 노드를 찾기
+       2) 최대값 노드가 이미 맨 앞이 아니면 떼어내기
+       3) 맨 앞에 다시 붙이기
+    */
 }
 
 //////////////////////////////////////////////////////////////////////////////////
 
+// 리스트의 모든 값을 출력합니다.
 void printList(LinkedList *ll){
 
 	ListNode *cur;
@@ -110,6 +125,7 @@ void printList(LinkedList *ll){
 	printf("\n");
 }
 
+// index번째 노드를 반환합니다.
 ListNode * findNode(LinkedList *ll, int index){
 
 	ListNode *temp;
@@ -132,6 +148,7 @@ ListNode * findNode(LinkedList *ll, int index){
 	return temp;
 }
 
+// index 위치에 새 노드를 삽입합니다.
 int insertNode(LinkedList *ll, int index, int value){
 
 	ListNode *pre, *cur;
@@ -139,7 +156,7 @@ int insertNode(LinkedList *ll, int index, int value){
 	if (ll == NULL || index < 0 || index > ll->size + 1)
 		return -1;
 
-	// If empty list or inserting first node, need to update head pointer
+	// 첫 위치에 넣을 때는 head부터 바꿔야 합니다.
 	if (ll->head == NULL || index == 0){
 		cur = ll->head;
 		ll->head = malloc(sizeof(ListNode));
@@ -150,8 +167,7 @@ int insertNode(LinkedList *ll, int index, int value){
 	}
 
 
-	// Find the nodes before and at the target position
-	// Create a new node and reconnect the links
+	// 새 노드를 중간에 끼워 넣기 위해 연결을 조정합니다.
 	if ((pre = findNode(ll, index - 1)) != NULL){
 		cur = pre->next;
 		pre->next = malloc(sizeof(ListNode));
@@ -165,6 +181,7 @@ int insertNode(LinkedList *ll, int index, int value){
 }
 
 
+// index번째 노드를 삭제합니다.
 int removeNode(LinkedList *ll, int index){
 
 	ListNode *pre, *cur;
@@ -200,6 +217,7 @@ int removeNode(LinkedList *ll, int index){
 	return -1;
 }
 
+// 모든 노드를 메모리에서 해제합니다.
 void removeAllItems(LinkedList *ll)
 {
 	ListNode *cur = ll->head;

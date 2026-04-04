@@ -11,12 +11,16 @@ Purpose: Implementing the required functions for Question 2 */
 
 //////////////////////////////////////////////////////////////////////////////////
 
+// 연결 리스트의 한 노드입니다.
+// next는 "다음 칸"으로 가는 화살표라고 생각하면 이해하기 쉽습니다.
 typedef struct _listnode
 {
 	int item;
 	struct _listnode *next;
 } ListNode;			// You should not change the definition of ListNode
 
+// 리스트 전체를 관리하는 구조체입니다.
+// head는 첫 노드, size는 현재 노드 수를 뜻합니다.
 typedef struct _linkedlist
 {
 	int size;
@@ -103,11 +107,22 @@ int main()
 
 void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)
 {
-    /* add your code here */
+    /* 
+       해야 할 일:
+       1) ll1과 ll2를 번갈아 가며 이어 붙입니다.
+       2) 예: 1->3->5 와 2->4->6 이면 1->2->3->4->5->6
+       3) 남는 노드가 있으면 마지막에 그대로 붙이면 됩니다.
+
+       포인터 관점에서 보면:
+       - 한 리스트에서 노드를 하나 꺼내고
+       - 다른 리스트 노드 뒤에 연결하고
+       - 다음으로 이동하는 과정을 반복하면 됩니다.
+    */
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
 
+// 리스트를 앞에서부터 차례대로 출력합니다.
 void printList(LinkedList *ll){
 
 	ListNode *cur;
@@ -126,6 +141,7 @@ void printList(LinkedList *ll){
 }
 
 
+// 모든 노드를 free해서 메모리를 정리합니다.
 void removeAllItems(LinkedList *ll)
 {
 	ListNode *cur = ll->head;
@@ -141,6 +157,7 @@ void removeAllItems(LinkedList *ll)
 }
 
 
+// index번째 노드의 주소를 반환합니다.
 ListNode *findNode(LinkedList *ll, int index){
 
 	ListNode *temp;
@@ -163,6 +180,7 @@ ListNode *findNode(LinkedList *ll, int index){
 	return temp;
 }
 
+// index 위치에 새 노드를 삽입하는 기본 함수입니다.
 int insertNode(LinkedList *ll, int index, int value){
 
 	ListNode *pre, *cur;
@@ -170,7 +188,7 @@ int insertNode(LinkedList *ll, int index, int value){
 	if (ll == NULL || index < 0 || index > ll->size + 1)
 		return -1;
 
-	// If empty list or inserting first node, need to update head pointer
+	// 맨 앞 삽입은 head가 바뀌므로 따로 처리합니다.
 	if (ll->head == NULL || index == 0){
 		cur = ll->head;
 		ll->head = malloc(sizeof(ListNode));
@@ -181,8 +199,7 @@ int insertNode(LinkedList *ll, int index, int value){
 	}
 
 
-	// Find the nodes before and at the target position
-	// Create a new node and reconnect the links
+	// 앞 노드를 찾고, 새 노드를 사이에 끼워 넣습니다.
 	if ((pre = findNode(ll, index - 1)) != NULL){
 		cur = pre->next;
 		pre->next = malloc(sizeof(ListNode));
@@ -196,6 +213,7 @@ int insertNode(LinkedList *ll, int index, int value){
 }
 
 
+// index 위치의 노드를 삭제합니다.
 int removeNode(LinkedList *ll, int index){
 
 	ListNode *pre, *cur;

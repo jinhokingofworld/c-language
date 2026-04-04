@@ -88,9 +88,57 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
+// int insertSortedLL(LinkedList *ll, int item)
+// {
+// 	/* add your code here */
+	
+// }
 int insertSortedLL(LinkedList *ll, int item)
-{
-	/* add your code here */
+{		
+	// ll이 NULL이면 "리스트 자체가 없음"을 뜻하므로 실패 처리합니다.
+	if (ll == NULL) {
+		return -1;
+	}
+
+	int index = 0;
+	ListNode *cur = ll->head;
+
+	//순회
+	while (cur != NULL) {
+		//현재 값이 넣어야 하는 값보다 크면, 정지.
+		if (cur->item > item){
+			break;
+		}
+
+		//현재 값이 넣어야 하는 값과 같으면, 오류
+		if (cur->item == item){
+			return -1;
+		}
+
+		//현재 값이 넣어야 하는 값보다 작으면, 이동.
+		if (cur->item < item){
+			//다음이 있으면 다음으로 감.
+			if (cur->next != NULL){
+				cur = cur->next;
+				index++;
+			}	
+			//끝에 도달했다면, 인덱스만 이동
+			else {
+				index++;
+				break;
+			}
+		}
+
+		
+	}
+
+	//NULL이거나, 넣어야 하는 인덱스에서 멈춤
+	int temp = insertNode(ll, index, item);
+	if (temp == -1){
+		return temp;
+	}
+
+	return index;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
