@@ -118,8 +118,52 @@ void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)
        - 다른 리스트 노드 뒤에 연결하고
        - 다음으로 이동하는 과정을 반복하면 됩니다.
     */
+
+	ListNode *cur1 = ll1->head;
+	ListNode *cur2 = ll2->head;
+	ListNode *next1;
+	ListNode *next2;
+
+	//ll2의 요소가 들어갈 index
+	int idx1 = 1;
+
+	//ll1이 head->NULL인 경우
+	if (ll1->head == NULL){
+		ll1->head = ll2->head;
+		ll2->head = NULL;
+	}
+
+	//ll2가 head->NULL인 경우
+	if (ll2->head == NULL){
+		return;
+	}
+
+	// 포인터가 가리키는게 있는 동안 반복
+	while(cur1 != NULL && cur2 != NULL) {
+		int temp_item = cur2->item;
+
+		//삽입하기
+		// printf("%d", insertNode(ll1, idx1, temp_item));
+		next1 = cur1->next;
+		next2 = cur2->next;
+
+		cur1->next = cur2;
+		cur2->next = next1;
+		
+		cur1 = next1;		
+		cur2 = next2;
+
+		//cur1이 끝나면 종료
+		if (cur1 == NULL) {
+			ll2->head = cur2;
+			return; 
+		}
+	}
 }
 
+//int insertNode(LinkedList *ll, int index, int value){
+//성공 시 0, 실패 시 -1
+//ListNode *findNode(LinkedList *ll, int index)
 ///////////////////////////////////////////////////////////////////////////////////
 
 // 리스트를 앞에서부터 차례대로 출력합니다.
