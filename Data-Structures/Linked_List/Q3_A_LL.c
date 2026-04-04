@@ -86,21 +86,114 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
+/*
+	해야 할 일:
+	- 홀수 값을 가진 노드를 모두 리스트 뒤쪽으로 보냅니다.
+	- 짝수들의 상대적 순서와 홀수들의 상대적 순서는 보통 유지하는 방식이 깔끔합니다.
+
+	생각 방법:
+	1) 현재 노드가 홀수인지 확인
+	2) 홀수면 그 노드를 떼어서 맨 뒤에 붙임
+	3) 짝수면 그냥 다음 노드로 이동
+
+	연결 리스트에서는 "값을 복사"하기보다
+	"노드 연결(next)을 바꾸는 것"이 핵심입니다.
+*/
 void moveOddItemsToBack(LinkedList *ll)
 {
-	/*
-	  해야 할 일:
-	  - 홀수 값을 가진 노드를 모두 리스트 뒤쪽으로 보냅니다.
-	  - 짝수들의 상대적 순서와 홀수들의 상대적 순서는 보통 유지하는 방식이 깔끔합니다.
+	//링크드 리스트가 비어있으면 리턴
+	// if (ll->head == NULL){
+	// 	return;
+	// }
+	
+	// ListNode *cur1 = ll->head;
+	// ListNode *prev = NULL;
 
-	  생각 방법:
-	  1) 현재 노드가 홀수인지 확인
-	  2) 홀수면 그 노드를 떼어서 맨 뒤에 붙임
-	  3) 짝수면 그냥 다음 노드로 이동
+	// //값에 의한 복사여서 이중포인터를 사용해야 함
+	// LinkedList temp;
+	// temp.head = NULL;
+	// ListNode **cur2 = &temp.head;
+	// ListNode *cur3 = temp.head;
+	// int count = 0;
+	
+	// //리스트의 맨 끝으로 감
+	// while (cur1 != NULL) {
+	// 	//홀수확인
+	// 	if (cur1->item % 2 == 1){
+	// 		//처음에 홀수가 나오면
+	// 		if (cur1 == ll->head){
+	// 			//ll1에서 cur1 떼기
+	// 			ll->head = cur1->next;
+	// 			cur1->next = NULL;
+	// 		} 
+	// 		//처음이 아닌 홀수
+	// 		else {
+	// 			//ll1에서 cur1 떼기
+	// 			prev->next = cur1->next;
+	// 			cur1->next = NULL;
+	// 		}
+	
+	// 		//ll2에 붙이기
+	// 		//비어있는 리스트 라면
+	// 		if (temp.head == NULL) {
+	// 				*cur2 = cur1;
+	// 				cur3 = cur3->next;
+	// 		} else { //비어있지 않다면
+	// 			cur3->next = cur1;
+	// 			cur3 = cur3->next;
+	// 		}
+	// 	}
+		
+	// 	prev = cur1;
+	// 	cur1 = cur1->next;
+	// }
 
-	  연결 리스트에서는 "값을 복사"하기보다
-	  "노드 연결(next)을 바꾸는 것"이 핵심입니다.
-	*/
+	// //링크드 리스트 2개 붙이기
+	// while( cur1->next != NULL ) {
+	// 	cur1 = cur1->next;
+	// }
+	// 	if (*cur2 != NULL){
+	// 		cur1->next = *cur2;
+	// 	}
+
+	if (ll->head == NULL) return;
+
+    ListNode *tail = ll->head;
+    
+    // 1. tail 찾기
+    while (tail->next != NULL) {
+        tail = tail->next;
+    }
+
+    ListNode *cur = ll->head;
+    ListNode *prev = NULL;
+    ListNode *end = tail;  // 처음 tail 기준
+
+    while (cur != NULL && cur != end->next) {
+        
+        // 다음 노드 미리 저장 (🔥 중요)
+        ListNode *next = cur->next;
+
+        if (cur->item % 2 == 1) {
+            
+            // 앞에서 제거
+            if (cur == ll->head) {
+                ll->head = next;
+            } else {
+                prev->next = next;
+            }
+
+            // 뒤에 붙이기
+            tail->next = cur;
+            cur->next = NULL;
+            tail = cur;
+
+        } else {
+            prev = cur;
+        }
+
+        cur = next;
+    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -122,6 +215,7 @@ void printList(LinkedList *ll){
 	}
 	printf("\n");
 }
+	//
 
 
 // 모든 노드를 해제합니다.
