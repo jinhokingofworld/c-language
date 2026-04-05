@@ -40,7 +40,7 @@ int removeNode(LinkedList *ll, int index);
 
 int main()
 {
-	int c, i;
+	int c = -1, i;
 	LinkedList ll;
 	LinkedList resultFrontList, resultBackList;
 
@@ -112,11 +112,52 @@ void frontBackSplitLinkedList(LinkedList *ll, LinkedList *resultFrontList, Linke
 	  예:
 	  - 1 2 3 4 이면 front: 1 2 / back: 3 4
 	  - 1 2 3 4 5 이면 front: 1 2 3 / back: 4 5
-
+ 
 	  방법:
 	  - size를 이용해 중간 위치를 계산하거나
 	  - 빠른 포인터/느린 포인터를 사용할 수 있습니다.
 	*/
+
+	/*
+		해결순서.
+		LinkedList의 size를 본다.
+		NULL인경우 = return
+		짝수인 경우 = for문을 size/2 만큼 돌고, 다음 노드를 기준으로 떼어낸다.
+		홀수인 경우 = for문을 1부터	size/2만큼 돌고, 다음 노드를 기준으로 떼어낸다.
+	*/
+
+	if(ll == NULL || ll->head == NULL || ll->size == 0) {
+		return;
+	}
+
+	int size = ll->size;
+	int end;
+	ListNode *h = ll->head;
+	ListNode *c = ll->head;
+
+	//사이즈가 짝수인 경우
+	if(size % 2 == 0 ) {
+		end = size / 2;
+	} else { //홀수인 경우
+		end = size / 2 + 1;
+	}
+
+	//사이즈 만큼 돌기
+	for (int i = 1; i < end; i++) {
+		c = c->next;
+	}
+	
+	ListNode *start2 = c->next;
+	ListNode *end1 = c;
+	end1->next = NULL;
+	
+	resultFrontList->head = h;
+	resultBackList->head = start2;
+
+	ll->head = NULL;
+	ll->size = 0;
+	resultFrontList->size = end;
+	resultBackList->size = size - end;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
