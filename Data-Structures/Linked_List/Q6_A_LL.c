@@ -103,6 +103,44 @@ int moveMaxToFront(ListNode **ptrHead)
        2) 최대값 노드가 이미 맨 앞이 아니면 떼어내기
        3) 맨 앞에 다시 붙이기
     */
+
+	/*
+		풀이 순서
+		1. 순회를 하면서, 가장 큰 값의 인덱스(maxIdx)를 찾음
+		2. max 이전 노드드 가리키고, 노드 수정.
+		3. 맨 앞에 붙임
+	*/
+	//moveMaxToFront(&(ll.head)); 
+
+	//가리키는 노드가 없을 때는 리턴
+	if (ptrHead == NULL && *ptrHead == NULL) return -1;
+
+	ListNode *cur = *ptrHead; //head 포인터
+	ListNode *max_left = NULL;
+	ListNode *prev = NULL;	
+	int max = (*ptrHead)->item;;
+
+	// 1.순회하며 최댓값 찾기
+	while (cur != NULL) {
+		//max보다 큰 값이 나오면, max교체
+		//max 이전의 값 저장
+		if (cur->item > max) {
+			max = cur->item;
+			max_left = prev;
+		}
+			prev = cur;
+			cur = cur->next;
+	}
+
+	// 2.노드 수정
+	if ( (*ptrHead)->item != max ) {
+		cur = max_left->next;
+		max_left->next = cur->next;
+		cur->next = *ptrHead;
+		*ptrHead = cur;
+	}
+
+	return 0;
 }
 
 //////////////////////////////////////////////////////////////////////////////////
