@@ -98,8 +98,48 @@ void moveEvenItemsToBack(LinkedList *ll)
 	  - 떼어내서 뒤에 붙일지
 	  - head가 바뀌는 경우가 있는지
 	*/
-}
+	
+	if (ll->head == NULL) return;
 
+	ListNode *tail = ll->head;
+	while (tail->next != NULL) {
+		tail = tail->next;
+	}
+
+	ListNode *cur = ll->head;
+	ListNode *prev = NULL;
+	ListNode *end = tail;
+
+	while (cur != NULL && cur != end->next){
+		ListNode *next = cur->next;
+
+		//짝수 확인
+		if (cur->item % 2 == 0) {
+			
+			//링크드 리스트의 처음일 때
+			if(cur == ll->head) {
+				ll->head = cur->next;
+	
+			} else { //링크드 리스트의 중간일 때
+				prev->next = cur->next;
+
+			}
+
+			//tail에 붙이기
+			tail->next = cur;
+			cur->next = NULL;
+			tail = tail->next;
+
+		} else { //짝수가 아닐 때
+			prev = cur;
+		}
+		//공통: 다음으로 이동
+		cur = next;
+	}
+	
+}
+//반복문이 계속 돌아간다는건, while을 탈출 못했다는 뜻 -> while 조건 확인
+//
 ///////////////////////////////////////////////////////////////////////////////////
 
 // 리스트의 값을 차례대로 출력합니다.

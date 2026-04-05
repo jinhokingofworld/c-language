@@ -112,7 +112,7 @@ void moveOddItemsToBack(LinkedList *ll)
 	// //값에 의한 복사여서 이중포인터를 사용해야 함
 	// LinkedList temp;
 	// temp.head = NULL;
-	// ListNode **cur2 = &temp.head;
+	// ListNode *cur2 = &temp.head;
 	// ListNode *cur3 = temp.head;
 	// int count = 0;
 	
