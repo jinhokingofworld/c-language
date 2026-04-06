@@ -112,7 +112,7 @@ int balanced(char *expression)
 	Stack s;
 	s.ll.head = NULL;
 	s.ll.size = 0;
-
+   
 	while (*cur != '\0') {
 		if (*cur == '[' || *cur == '{' || *cur == '(') {
 			push(&s, *cur);
