@@ -23,7 +23,6 @@ typedef struct _linkedlist
 	ListNode *head;
 } LinkedList;	// You should not change the definition of LinkedList
 
-
 typedef struct _queue
 {
 	LinkedList ll;
@@ -116,12 +115,56 @@ int main()
 
 void createQueueFromLinkedList(LinkedList *ll, Queue *q)
 {
-	/* add your code here */
+	if (ll == NULL || ll->head == NULL || ll->size == 0) return;
+
+	//큐 초기화
+	q->ll.head = NULL;
+	
+	ListNode *cur = ll->head;
+
+	if ( cur != NULL ) {
+		q->ll.head = cur;
+	}
 }
 
 void removeOddValues(Queue *q)
 {
 	/* add your code here */
+
+	/*
+		해결순서
+		while문으로 돌면서 q->next가 NULL이 아닐 때까지 돌면서, q가 홀수면, Free해버리기		
+	*/
+
+	if (q == NULL || (q->ll).head == NULL) return;
+
+	ListNode *first = (q->ll).head;
+	ListNode *cur = first;
+	ListNode *prev = NULL;
+
+	while( cur !=NULL ) {
+		ListNode *next = cur->next;
+
+		//홀수일 경우
+		if (cur->item % 2 == 0) {
+
+			//처음 노드일 때
+			if (cur == first) {
+				(q->ll).head = cur->next;
+				cur->next = NULL;	
+				free(cur);
+				
+			} else { //처음이 아닐 때
+				prev->next = next;
+				cur->next = NULL;
+				free(cur);
+			}	
+
+		} else {
+			prev = cur;
+		}
+		cur = next;
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////////////
