@@ -113,6 +113,7 @@ int balanced(char *expression)
 	s.ll.head = NULL;
 	s.ll.size = 0;
    
+	// ""는 문자열, ''은 문자
 	while (*cur != '\0') {
 		if (*cur == '[' || *cur == '{' || *cur == '(') {
 			push(&s, *cur);
@@ -126,6 +127,7 @@ int balanced(char *expression)
 		else if(*cur == ')') {
 			if (isEmptyStack(&s) || pop(&s) != '(') return 1;
 		}
+		//포인터 + 1 = "다음 요소로 이동"
 		cur = cur + 1;
 	}
 

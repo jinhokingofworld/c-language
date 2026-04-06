@@ -124,17 +124,17 @@ void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)
 	ListNode *next1;
 	ListNode *next2;
 
-	//ll2의 요소가 들어갈 index
-	int idx1 = 1;
+	// //ll2의 요소가 들어갈 index
+	// int idx1 = 1;
 
 	//ll1이 head->NULL인 경우
-	if (ll1->head == NULL){
-		ll1->head = ll2->head;
-		ll2->head = NULL;
-	}
+	// if (ll1->head == NULL){
+	// 	ll1->head = ll2->head;
+	// 	ll2->head = NULL;
+	// }
 
 	//ll2가 head->NULL인 경우
-	if (ll2->head == NULL){
+	if (ll1->head == NULL || ll2->head == NULL){
 		return;
 	}
 
@@ -153,12 +153,9 @@ void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)
 		cur1 = next1;		
 		cur2 = next2;
 
-		//cur1이 끝나면 종료
-		if (cur1 == NULL) {
-			ll2->head = cur2;
-			return; 
-		}
 	}
+
+	ll2->head = cur2;
 }
 
 //int insertNode(LinkedList *ll, int index, int value){
