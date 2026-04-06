@@ -105,7 +105,35 @@ void RecursiveReverse(ListNode **ptrHead)
 	  여기서도 head가 바뀌므로 ListNode **를 사용합니다.
 	*/
 
-	
+	/*
+		문제
+		재귀 방식으로 연결리스트를 뒤집기.
+		리스트를 재귀적으로 반전시키는 C함수를 작성
+		first->next->next = first;
+		first->next = NULL;
+		
+		해결순서
+		1. 재귀로 마지막 전으로 가서 first->next
+		
+		
+	*/
+	if (ptrHead == NULL && *ptrHead == NULL) return;
+
+	//base case
+	if ((*ptrHead)->next == NULL) {
+		return;
+	}
+
+	//해당 스택의 변수 설정.
+	ListNode *first = *ptrHead;
+	*ptrHead = (*ptrHead)->next;
+
+	//탐색
+	RecursiveReverse(ptrHead);
+
+	//메인 연결 작업
+	first->next->next = first;
+	first->next = NULL;
 }
 
 //////////////////////////////////////////////////////////////////////////////////
