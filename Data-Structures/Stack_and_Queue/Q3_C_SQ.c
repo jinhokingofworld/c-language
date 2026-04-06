@@ -104,6 +104,35 @@ int main()
 int isStackPairwiseConsecutive(Stack *s)
 {
   /* add your code here */
+
+  /*
+	문제: 두 개씩 짝을 지었을 때, pairwise 하는가?
+	스택의 요소가 홀수이면, not pairwise
+	스택의 요소가 짝수이면, 2개씩 묶어서 연속적이면, pairwise, 아니면 not pairwise
+
+	해결 순서
+	짝수인지 홀수인지 확인
+	홀수면 -> return 0
+	짝수면 -> 확인한 후 1 or 0
+  */
+ // isStackPairwiseConsecutive(&s)
+
+	if (s == NULL || s->ll.head == NULL || s->ll.size % 2 == 1){
+		return 0;
+	}
+	
+	ListNode *cur = s->ll.head;
+	
+	while (cur != NULL) {
+		ListNode *next = cur->next;
+		if(cur->item - next->item != -1 && cur->item - next->item != 1){
+			return 0;
+		}
+		
+		cur = next->next;
+	}
+
+	return 1;
 }
 
 //////////////////////////////////////////////////////////////////////////////////
