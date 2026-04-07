@@ -97,7 +97,30 @@ int main()
 int maxHeight(BTNode *node)
 
 {
-    /* add your code here */
+    /* 
+        typedef struct _btnode{
+            int item;
+            struct _btnode *left;
+            struct _btnode *right;
+        } BTNode;  
+
+        해결순서
+        재귀를 이용하면 될 것 같음.
+        
+        1. node의 왼쪽, 오른쪽을 보고 길이가 긴 것을 출력
+    */
+    int result = 0;
+
+    if (node == NULL){
+        return -1;
+    }
+
+    int temp1 = maxHeight(node->left);
+    int temp2 = maxHeight(node->right);
+    result += (temp1 >= temp2 ? temp1 : temp2);
+    result += 1;
+
+    return result;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
