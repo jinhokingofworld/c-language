@@ -116,7 +116,36 @@ int main()
 int identical(BTNode *tree1, BTNode *tree2)
 
 {
-   /* add your code here */
+    /* 
+        typedef struct _btnode{
+            int item;
+            struct _btnode *left;
+            struct _btnode *right;
+        } BTNode;
+
+        문제: 두 개의 트리가 구조적으로 동일한지 판단하는 재귀함수
+       
+        확인해야 할 것
+        1. 두 트리가 모두 비어있는 경우
+        2. 노드의 값이 같고, 왼쪽 및 오른쪽이 서로 동일한지
+        3. 같으면 1, 그렇지 않으면 0
+
+        해결 순서
+        1. 재귀적으로 2k+1, 2k+2를 확인하기.
+        2. 2k+1, 2k+2가 NULL인지 확인하기 
+    */
+   
+    if (tree1 == NULL && tree2 == NULL) return 1;
+
+    if (tree1 == NULL || tree2 == NULL) return 0;
+
+    if (tree1->item == tree2->item){
+        if (identical(tree1->left, tree2->left) && identical(tree1->right, tree2->right)){
+            return 1;
+        }
+    }
+
+    return 0;
 }
 
 /////////////////////////////////////////////////////////////////////////////////
