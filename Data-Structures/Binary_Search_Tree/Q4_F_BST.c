@@ -91,7 +91,8 @@ int main()
 
 void postOrderIterativeS1(BSTNode *root)
 {
-	 /* add your code here */
+	if (root != NULL) return;
+	
 }
 
 ///////////////////////////////////////////////////////////////////////////////

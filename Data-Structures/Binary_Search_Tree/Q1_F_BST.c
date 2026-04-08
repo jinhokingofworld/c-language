@@ -91,17 +91,50 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 // BFS를 구현하라
+
+/*
+	typedef struct _bstnode{
+		int item;
+		struct _bstnode *left;
+		struct _bstnode *right;
+	} BSTNode;   // You should not change the definition of BSTNode
+
+	typedef struct _QueueNode {
+		BSTNode *data;
+		struct _QueueNode *nextPtr;
+	}QueueNode; // You should not change the definition of QueueNode
+
+
+	typedef struct _queue
+	{
+		QueueNode *head;
+		QueueNode *tail;
+	}Queue;
+*/
 void levelOrderTraversal(BSTNode* root)
 {
-	//없으면,
-	if (root == NULL) {
-		return;
-	}
 
-	if (root != NULL) {
-		// while로 큐가 비기 전 까지 돌리고
-		// 	왼쪽, 오른쪽 큐에 넣고,
-		// 	계속 넣음 
+	if (root == NULL) return;
+
+	Queue *q = malloc(sizeof(Queue));
+	q->head = malloc(sizeof(QueueNode));
+	q->tail = q->head;
+	QueueNode *f = q->head;
+	QueueNode *b = q->tail;
+
+	enqueue(f, b, root);
+
+	//큐가 비어있지 않을 동안 반복
+	while(!isEmpty(q->head)) {
+		//큐에서 꺼냄.
+		BSTNode *temp = dequeue(head, tail);
+		
+		printf("%d", temp->item);
+
+		if (temp->left != NULL)
+			enqueue(head, tail, temp->left);
+		if (temp->right != NULL)
+			enqueue(head, tail, temp->right);
 
 	}
 }
